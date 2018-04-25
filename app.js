@@ -1,8 +1,24 @@
 const request = require('request');
+const yargs = require('yargs');
 const config = require('./config.json');
 
+const argv = yargs
+  .options({
+    a: {
+      demand: true,
+      alias: 'address',
+      describe: 'Address to fetch weather for',
+      string: true
+    }
+  })
+  .help()
+  .alias('help', 'h')
+  .argv;
+
+const encodedAddress = encodeURIComponent(argv.address);
+
 request({
-  url: `https://maps.googleapis.com/maps/api/geocode/json?address=5115%20Lake%20Road&key=${config.apiKey}`,
+  url: `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=${config.apiKey}`,
   json: true
 }, (error, response, body) => {
   if (response.statusCode === 200) {
@@ -10,5 +26,4 @@ request({
     console.log(`lat: ${body.results[0].geometry.location.lat}`);
     console.log(`lng: ${body.results[0].geometry.location.lng}`);
   }
-  // console.log(JSON.stringify(body, undefined, 2));
 });
