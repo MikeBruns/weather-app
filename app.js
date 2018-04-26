@@ -4,9 +4,9 @@ const config = require('./config.json');
 
 const argv = yargs
   .options({
-    a: {
+    address: {
       demand: true,
-      alias: 'address',
+      alias: 'a',
       describe: 'Address to fetch weather for',
       string: true
     }
