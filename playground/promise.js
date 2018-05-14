@@ -10,21 +10,19 @@ var asyncAdd = (a, b) => {
   });
 };
 
-asyncAdd(1, 2)
+asyncAdd(1, 7)
 //resovle
 .then((result) => {
   console.log('Result:', result);
   return asyncAdd(result, 33);
-//reject
-}, (errorMessage) => {
-  console.log(errorMessage);
 })
 //Promise once the previous promise finishes
 //resolve
 .then((result) => {
   console.log('Second promise:', result);
-//reject
-}, (errorMessage) => {
+})
+//one function to handle all reject callbacks
+.catch((errorMessage) => {
   console.log(errorMessage);
 });
 
